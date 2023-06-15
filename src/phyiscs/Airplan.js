@@ -1,15 +1,15 @@
-class Airplan { 
+class Airplan {
 
-    constructor () {
+    constructor() {
         this.constant = {
-            G : 10 
+            G: 10,
         }
 
         this.varibles = {
 
         }
     }
-    
+
 
     // forces
 
@@ -50,7 +50,7 @@ class Airplan {
 
 
     weight = () => {
-        
+
     }
 }
 
