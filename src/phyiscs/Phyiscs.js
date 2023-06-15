@@ -5,7 +5,6 @@ class Phyiscs {
         // some changes by william
         // william please done change anything
         this.x = 0
-        this.y = 0
     }
 
     acc = () => {
