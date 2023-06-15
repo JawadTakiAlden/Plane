@@ -1,11 +1,11 @@
 class Phyiscs {
-    
-    volicity = () => {
 
+    volicity = () => {
+        // some changes by youmna
     }
 
     acc = () => {
-        
+
     }
 
     // position of airplan 
