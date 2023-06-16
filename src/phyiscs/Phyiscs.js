@@ -20,8 +20,4 @@ class Phyiscs {
 
     }
 
-    posAng = () => { //theta_x,theta_y,theta_z 
-
-    }
-}
-export default Phyiscs
+    posAng = () => { //theta_x,theta_y,theta_z
