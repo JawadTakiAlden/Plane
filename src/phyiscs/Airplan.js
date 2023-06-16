@@ -49,6 +49,28 @@ class Airplan {
     }
 
     // weight hepler function
+    Gravity(h) {
+        const g0 = 9.81; // acceleration due to gravity at sea level, in m/s^2
+        const R = 6371000; // radius of the Earth, in meters
+        const g = g0 * (R / (R + h)) ** 2;
+        return this.Gravity;
+    }
+
+    Weight(emptyWeight, cargoWeight, fuelWeight, passengerWeight, Gravity) {
+        const maxTakeoffWeight = 5000; // Replace with the maximum takeoff weight of your airplane
+        const usefulLoad = maxTakeoffWeight - emptyWeight;
+        const totalWeight = emptyWeight + cargoWeight + fuelWeight + passengerWeight;
+
+        if (totalWeight > maxTakeoffWeight) {
+            throw new Error("Total weight exceeds maximum takeoff weight.");
+        }
+
+        if (cargoWeight > usefulLoad) {
+            throw new Error("Cargo weight exceeds useful load.");
+        }
+
+        return totalWeight * Gravity;
+    }
 
     // weight
     weight = (G, M, m, d) => {
@@ -64,14 +86,6 @@ class Airplan {
 
     }
 
-<<<<<<< HEAD
-
-    weight = () => {
-
-
-    }
-=======
->>>>>>> a3ee069e3d8c1b633faf81985ee5815200456c6e
 }
 
 export default Airplan
