@@ -1,4 +1,8 @@
-class Airplan {
+import vector from "./Vector";
+import * as THREE from "three";
+import { Vector3 } from "three";
+
+class Airplane {
 
     constructor() {
         this.constant = {
@@ -64,6 +68,32 @@ class Airplan {
 
     }
 
+    // Physics 
+
+    acc = () => { //a
+
+    }
+
+    velocity = () => { //v
+
+    }
+
+    position = () => { //x,y,z
+
+    }
+
+    accAng = () => { //alpha
+
+    }
+
+    veloAng = () => { //omega
+
+    }
+
+    posAng = () => { //theta_x,theta_y,theta_z 
+
+    }
+
 }
 
-export default Airplan
+export default Airplane

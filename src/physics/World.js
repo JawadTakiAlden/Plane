@@ -1,4 +1,5 @@
 import vector from "./Vectorector";
+
 class World {
     constructor(gravity, height, tempereture, wind_speed, wind_angle) {
         this.gravity = gravity;
