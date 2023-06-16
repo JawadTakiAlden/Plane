@@ -2,7 +2,6 @@ class Phyiscs {
 
     volicity = () => {
 
-
     }
 
     acc = () => {
