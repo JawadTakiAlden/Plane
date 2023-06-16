@@ -1,16 +1,26 @@
 class Phyiscs {
 
-    volicity = () => {
+    acc = () => { //a
 
     }
 
-    acc = () => {
+    velocity = () => { //v
 
     }
 
-    // position of airplan 
+    position = () => { //x,y,z
 
-    position = () => {
+    }
+
+    accAng = () => { //alpha
+
+    }
+
+    veloAng = () => { //omega
+
+    }
+
+    posAng = () => { //theta_x,theta_y,theta_z 
 
     }
 }

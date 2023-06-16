@@ -8,6 +8,7 @@ class World {
         this.wind_angle = wind_angle;
         this.objects = [];
     }
+
     calc_air_rho(g, H, T) {
         let Rspecific = 287.058,
             R = 8.3148,
