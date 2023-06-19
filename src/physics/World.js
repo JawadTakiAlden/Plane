@@ -10,17 +10,16 @@ class World {
         this.objects = [];
     }
 
-    calc_air_rho(g, H, T) {
-        let Rspecific = 287.058,
-            R = 8.3148,
-            Md = 0.028964;
-        let P0 = 1.01325; // 1bar =100000pa
-        let Tkelvin = T + 273.15;
-        let P = P0 * Math.exp((-Md * g * H) / (R * Tkelvin)) * Math.pow(10, 5);
-        let rho = P / (Rspecific * Tkelvin);
-        return rho;
+    calc_air_density(z) {
+       // Compute the air density.
+const temperature = 288.15 - 0.0065*z;
+const grp = (1.0 - 0.0065*z/288.15);
+const pressure = 101325.0*Math.pow(grp, 5.25);
+const density = 0.00348*pressure/temperature;
+return density;
     }
 
+    
     calc_wind_velo(wind_speed, wind_angle) {
         return vector.create(
             Number(Math.cos(wind_angle).toFixed(2)) * wind_speed, //x
