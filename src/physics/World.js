@@ -1,4 +1,5 @@
 import vector from "./Vectorector";
+import Airplane from "./Vectorector";
 
 class World {
     constructor(gravity, height, tempereture, wind_speed, wind_angle) {
@@ -10,16 +11,7 @@ class World {
         this.objects = [];
     }
 
-    calc_air_rho(g, H, T) {
-        let Rspecific = 287.058,
-            R = 8.3148,
-            Md = 0.028964;
-        let P0 = 1.01325; // 1bar =100000pa
-        let Tkelvin = T + 273.15;
-        let P = P0 * Math.exp((-Md * g * H) / (R * Tkelvin)) * Math.pow(10, 5);
-        let rho = P / (Rspecific * Tkelvin);
-        return rho;
-    }
+    
 
     calc_wind_velo(wind_speed, wind_angle) {
         return vector.create(
