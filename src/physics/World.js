@@ -1,4 +1,5 @@
 import vector from "./Vectorector";
+import Airplane from "./Vectorector";
 
 class World {
     constructor(gravity, height, tempereture, wind_speed, wind_angle) {
@@ -10,16 +11,6 @@ class World {
         this.objects = [];
     }
 
-    calc_air_density(z) {
-       // Compute the air density.
-const temperature = 288.15 - 0.0065*z;
-const grp = (1.0 - 0.0065*z/288.15);
-const pressure = 101325.0*Math.pow(grp, 5.25);
-const density = 0.00348*pressure/temperature;
-return density;
-    }
-
-    
     calc_wind_velo(wind_speed, wind_angle) {
         return vector.create(
             Number(Math.cos(wind_angle).toFixed(2)) * wind_speed, //x
