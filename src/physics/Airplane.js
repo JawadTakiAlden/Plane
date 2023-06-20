@@ -17,8 +17,8 @@ class Airplane {
 
     //set
 
-    setMass = (Mass) => {
-        this.Mass = Mass;
+    setPlaneMass = (PlaneMass) => {
+        this.PlaneMass = PlaneMass;
     }
     setWingSpan = (wingSpan) => {
         this.wingSpan = wingSpan;
@@ -45,10 +45,22 @@ class Airplane {
         this.G = G;
     }
 
+    setEnginesNum = (EnginesNum) => {
+        this.EnginesNum = EnginesNum;
+    }
+
+    setAngleOfAttack = (AngleOfAttack) => {
+        this.AngleOfAttack = AngleOfAttack;
+    }
+
+    setBankAngle = (BankAngle) => {
+        this.BankAngle = BankAngle;
+    }
+
     //get
 
-    getMass = () => {
-        return Mass;
+    getPlaneMass = () => {
+        return PlaneMass;
     }
     getWingSpan = () => {
         return wingSpan;
@@ -75,14 +87,24 @@ class Airplane {
         return G;
     }
 
+    getEnginesNum = () => {
+        return EnginesNum;
+    }
 
+    getAngleOfAttack=()=>{
+        return AngleOfAttack;
+    }
+
+    getBankAngle=()=>{
+        return BankAngle;
+    }
 
     // forces
 
 
     // lift helper function
-    calc_CL = (z) => {
-        flap=getFlap();
+    calc_CL = (y) => {
+        flap = getFlap();
         let cl;
         if (alpha < alphaClMax) {
             cl = clSlope0 * alpha + cl0;
@@ -100,25 +122,25 @@ class Airplane {
         if (flap.equals("40")) {
             cl += 0.5;
         }
-        if (z < 5.0) {
+        if (y < 5.0) {
             cl += 0.25;
         }
     }
-    calc_air_density = (z) => {
+    calc_air_density = (y) => {
         // Compute the air density.
-        const temperature = 288.15 - 0.0065 * z;
-        const grp = (1.0 - 0.0065 * z / 288.15);
+        const temperature = 288.15 - 0.0065 * y;
+        const grp = (1.0 - 0.0065 * y / 288.15);
         const pressure = 101325.0 * Math.pow(grp, 5.25);
         const density = 0.00348 * pressure / temperature;
         return density;
     }
     // lift
-    lift = (z, vtotal) => {
+    lift = (y, vtotal) => {
         // Calculates the lift force using the given inputs according to the formula:
         // F_L = 1/2 * C_L * rho * v^2 * A
-        destiny = calc_air_density(z);
+        density = calc_air_density(y);
         wingArea = getwingArea();
-        cl = calc_CL(z);
+        cl = calc_CL(y);
         let lift_force = 0.5 * cl * density * Math.pow(vtotal, 2) * wingArea;
         return lift_force;
     }
@@ -127,16 +149,16 @@ class Airplane {
 
 
     // drag 
-    drag = (z, vtotal) => {
+    drag = (y, vtotal) => {
         // Calculates the drag force using the given inputs according to the formula:
         // F_D = 1/2 * C_D * rho * v^2 * A
 
         cdp = getCdp();
-        cl = calc_CL(z);
+        cl = calc_CL(y);
         wingSpan = getWingSpan();
         wingArea = getwingArea();
         eff = getEff();
-        destiny = calc_air_density(z);
+        density = calc_air_density(y);
         // Compute drag coefficient.
         let aspectRatio = wingSpan * wingSpan / wingArea;
         let cd = cdp + cl * cl / (Math.PI * aspectRatio * eff);
@@ -149,29 +171,43 @@ class Airplane {
 
     // trust
 
-    thrust = (vtotal) => {
+    thrust = (vtotal, y) => {
 
-        // Compute power drop-off factor.
-        let omega = density / 1.225;
-        let factor = (omega - 0.12) / 0.88;
-        // Calculates the thrust 
-        destiny = calc_air_density(z);
-        throttle = getThrottle();
-        let advanceRatio = vtotal / (engineRps * propDiameter);
-        let thrust = throttle * factor * enginePower *
-            (a + b * advanceRatio * advanceRatio) / (engineRps * propDiameter);
-        return thrust;
+        if (calc_fuel_mass() > 0) {
+            // Compute power drop-off factor to add altitude effect.
+            density = this.calc_air_density(y);
+            let omega = density / 1.225;
+            let factor = (omega - 0.12) / 0.88;
+            // Calculates the thrustPerEngine 
+            throttle = getThrottle();
+            let advanceRatio = vtotal / (engineRps * propDiameter);
+            let thrustPerEngine = throttle * factor * enginePower *
+                (a + b * advanceRatio * advanceRatio) / (engineRps * propDiameter);
+            // calculate total thrust
+            let enginesNum = this.getEnginesNum();
+            let totalThrust = enginesNum * thrustPerEngine;
+            return totalThrust;
+        }
+        else
+            return 0;
+
+
     }
 
     // weight hepler function
+    calc_fuel_mass = () => {
+        throttle = getThrottle();
+        fuelMass=fuelMass-(throttle*engineUsage);
+        return fuelMass;
+    }
 
     // weight
     weight = () => {
         // Calculates the weight force 
-        let m = getMass();
+        let m = this.getPlaneMass();
         let g = getG();
-        //mTotal=
-        let weight = g * mTotal;
+        let Mtotal = m + calc_fuel_mass();
+        let weight = g * Mtotal;
         return weight;
     }
 
@@ -190,7 +226,7 @@ class Airplane {
 
     }
 
-    position = () => { //x,y,z
+    position = () => { //x,y,y
 
     }
 
@@ -202,7 +238,7 @@ class Airplane {
 
     }
 
-    posAng = () => { //theta_x,theta_y,theta_z 
+    posAng = () => { //theta_x,theta_y,theta_y 
 
     }
 
