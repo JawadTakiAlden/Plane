@@ -174,6 +174,7 @@ class Airplane {
             let factor = (omega - 0.12) / 0.88;
             // Calculates the thrustPerEngine 
             throttle = getThrottle();
+            //قيمة الحمل الحركي يعبر عن نسبة سرعة الطائرة إلى سرعة الهواء المدخل إلى المحرك
             let advanceRatio = vtotal / (engineRps * propDiameter);
             let thrustPerEngine = throttle * factor * enginePower *
                 (a + b * advanceRatio * advanceRatio) / (engineRps * propDiameter);
