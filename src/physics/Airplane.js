@@ -26,13 +26,7 @@ class Airplane {
     setWingArea = (wingArea) => {
         this.wingArea = wingArea;
     }
-    //معامل السحب الطفيلي
-    setCdp = (Cdp) => {
-        this.Cdp = Cdp;
-    }
-    setEff = (Eff) => {
-        this.Eff = Eff;
-    }
+   
     setThrottle = (Throttle) => {
         this.Throttle = Throttle;
     }
