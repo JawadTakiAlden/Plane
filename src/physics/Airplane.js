@@ -18,6 +18,9 @@ class Airplane {
         this.linear_acc = vector.create(0, 0, 0);
         this.linear_velocity = vector.create(0, 0, 0);
         this.linear_location = vector.create(0, 0, 0);
+        this.blank=0;
+        this.heading=0;
+        this.climb=0;
         this.PlaneMass = 0;
         this.wingSpan = 0;
         this.wingArea = 0;
@@ -255,11 +258,9 @@ class Airplane {
     calc_climb = () => {
 
         if (this.getAngleOfAttack() != 0) {
-            this.climb = Math.atan(this.linear_velocity.getY() / this.linear_velocity.getZ());
+            this.climb = Math.atan(this.linear_velocity.getY() / this.linear_velocity.getZ());}
             return this.climb;
-        }
-        else
-            return 0;
+
     }
 
 
@@ -270,28 +271,22 @@ class Airplane {
             this.angular_acc.getZ() = this.linear_acc.getZ() / this.r;
             this.angular_velocity.getZ() = this.angular_velocity.getZ() + this.angular_acc.getZ() * dt;
             this.bank = this.bank + this.angular_velocity.getZ() * dt;
-            return this.bank;
-
         }
 
-        else if (this.getBankAngleIn() < this.banwk) {
+        if (this.getBankAngleIn() < this.banwk) {
             this.angular_acc_z = this.linear_acc.getZ() / r;
             this.angular_velocity_z = this.angular_velocity_z + this.angular_acc_z * dt;
             this.bank = this.bank - this.angular_velocity_z * dt;
-            return this.bank;
         }
-        else
-            return 0;
+        return this.bank;
     }
 
     //heading
     calc_heading = () => {
         if (this.bank != 0) {
             this.heading = Math.atan(this.linear_velocity.getX() / this.linear_velocity.getZ());
-            return this.heading;
         }
-        else
-            return 0;
+        return this.heading;
     }
 
 
